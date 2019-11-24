@@ -5,6 +5,7 @@ class Complex{
 	public:
 		Complex();
 		Complex(int r,int i);
+		Complex(const Complex &); //copy constructor
 		Complex operator+(const Complex&);
 		Complex operator-(const Complex&);
 	 	void operator+=(const Complex&);
@@ -12,10 +13,25 @@ class Complex{
 		void print();
 		void set(int r,int i);
 		bool operator==(const Complex&);
+		~Complex(){
+			cout<<"destructor"<<endl;
+		}
+		void printSI(){
+			cout<<"si : "<<si<<endl;
+		}
+		static void printsSI(){
+			cout<<"si : "<<si<<endl;
+//			cout<<"real : "<<real<<endl;//error
+		}
+		static int psi;
 	private:
+		static int si;
 		int real;
 		int image;
 };
+
+int Complex::si=100;
+int Complex::psi=200;
 
 Complex::Complex(){
 	real=0;
@@ -25,6 +41,12 @@ Complex::Complex(){
 Complex::Complex(int r,int i){
 	real=r;
 	image=i;
+}
+
+Complex::Complex(const Complex &c){
+	cout<<"copy constructor!!"<<endl;
+	real=c.real;
+	image=c.image;
 }
 
 Complex Complex::operator+(const Complex&c){
@@ -100,5 +122,12 @@ int main(){
 	}else{
 		cout<<"unequal"<<endl;
 	}
+	
+	Complex c4=c1;
+	Complex c5(c1);
+	
+	c5.printSI();
+	c5.printsSI();
+	cout<<"psi : "<<c5.psi<<endl;
 	return 0;
 }
